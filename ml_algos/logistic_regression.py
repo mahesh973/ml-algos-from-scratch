@@ -36,7 +36,7 @@ class LogisticRegression:
     
 
 if __name__ == "__main__":
-    # Generate a dataset to test the LinearRegression implementation
+    # Generate a dataset to test the LogisticRegression implementation
     X, y = datasets.make_classification(n_samples=1000, n_features=4, random_state=4)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1234)
 
