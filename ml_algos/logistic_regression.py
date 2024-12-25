@@ -5,13 +5,36 @@ from sklearn.metrics import accuracy_score, f1_score
 
 
 class LogisticRegression:
+    """
+    A simple implementation of Logistic Regression using gradient descent.
+
+    Attributes:
+        lr (float): Learning rate for the gradient descent optimization.
+        n_iters (int): Number of iterations to run gradient descent.
+        weights (numpy.ndarray): Coefficients for the features after training.
+        bias (float): Bias term after training.
+    """
     def __init__(self,lr = 0.001, n_iters = 1000):
+        """
+        Initializes the LogisticRegression model with specified learning rate and number of iterations.
+
+        Args:
+            lr (float): Learning rate for gradient descent. Default is 0.001.
+            n_iters (int): Number of iterations for gradient descent. Default is 1000.
+        """
         self.lr = lr
         self.n_iters = n_iters
         self.weights = None
         self.bias = None
     
     def fit(self, X, y):
+        """
+        Trains the Logistic Regression model using gradient descent.
+
+        Args:
+            X (numpy.ndarray): Feature matrix of shape (n_samples, n_features).
+            y (numpy.ndarray): Target vector of shape (n_samples,).
+        """
         n_samples, n_features = X.shape
         self.weights = np.random.rand(n_features) 
         self.bias = 0
@@ -27,11 +50,29 @@ class LogisticRegression:
             self.bias -= self.lr * db
 
     def predict(self, X):
+        """
+        Predicts binary class labels for the given feature matrix.
+
+        Args:
+            X (numpy.ndarray): Feature matrix of shape (n_samples, n_features).
+
+        Returns:
+            list: Predicted class labels (0 or 1) for each sample.
+        """
         y_predicted = self._sigmoid(np.dot(X, self.weights) + self.bias)
         y_predicted_cls = [1 if i > 0.5 else 0 for i in y_predicted]
         return y_predicted_cls
 
     def _sigmoid(self,x):
+        """
+        Computes the sigmoid function.
+
+        Args:
+            x (numpy.ndarray or float): Input value(s).
+
+        Returns:
+            numpy.ndarray or float: Sigmoid of the input value(s).
+        """
         return 1 / (1 + np.exp(-x))
     
 
