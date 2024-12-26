@@ -18,12 +18,14 @@ class Perceptron:
         self.weights = np.random.rand(n_features)
         self.bias = 0
 
+        y_ = np.array([1 if i > 0 else 0 for i in y])
+        
         for _ in range(self.n_iters):
             for idx, x_i in enumerate(X):
                 linear_model = np.dot(x_i, self.weights) + self.bias
                 y_predicted = self.activation(linear_model)
 
-                update = self.lr * (y[idx] - y_predicted)
+                update = self.lr * (y_[idx] - y_predicted)
                 self.weights +=  update * x_i
                 self.bias += update
 
