@@ -1,4 +1,3 @@
-# P(A/B) = P(B/A) * P(A) / P(B)
 # Imports
 import numpy as np
 from sklearn import datasets
