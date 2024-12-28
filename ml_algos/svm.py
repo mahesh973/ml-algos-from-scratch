@@ -3,7 +3,6 @@ import numpy as np
 from sklearn import datasets
 import matplotlib.pyplot as plt
 
-
 class SVC:
     """
     Support Vector Classifier (SVC) implementing a simple linear SVM using gradient descent.
