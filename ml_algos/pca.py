@@ -4,13 +4,36 @@ import matplotlib.pyplot as plt
 from sklearn import datasets
 
 class PCA:
+    """
+    Principal Component Analysis (PCA) implementation for dimensionality reduction.
+
+    Attributes:
+        n_components (int): Number of principal components to retain.
+        components (np.ndarray): Principal components of the dataset.
+        mean (np.ndarray): Mean of the dataset for centering during transformation.
+    """
     def __init__(self, n_components = None):
+        """
+        Initializes the PCA object.
+
+        Args:
+            n_components (int, optional): Number of principal components to retain. Defaults to None.
+        """
         self.n_components = n_components
         self.components = None
         self.mean = None
 
     
     def fit(self, X):
+        """
+        Computes the principal components of the dataset.
+
+        Args:
+            X (np.ndarray): The input data of shape (n_samples, n_features).
+
+        Raises:
+            ValueError: If the number of components is greater than the number of features.
+        """
         # 1. Subtract the mean from the data
         self.mean = np.mean(X, axis = 0)
         X -= self.mean
@@ -32,6 +55,15 @@ class PCA:
         self.components = eigen_vectors[:self.n_components]
 
     def transform(self, X):
+        """
+        Projects the dataset onto the principal components.
+
+        Args:
+            X (np.ndarray): The input data of shape (n_samples, n_features).
+
+        Returns:
+            np.ndarray: The transformed data of shape (n_samples, n_components).
+        """
         X -= self.mean
         return np.dot(X, self.components.T) 
     
