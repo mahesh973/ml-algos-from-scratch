@@ -1,8 +1,10 @@
+# Imports
 import numpy as np
-import pandas as pd
+from sklearn import datasets
+import matplotlib.pyplot as plt
 
 
-class SVM:
+class SVC:
     def __init__(self, learning_rate = 0.001, lambda_param = 0.01, n_iters = 1000):
         self.lr = learning_rate
         self.lambda_param = lambda_param
@@ -35,19 +37,13 @@ class SVM:
 
 # Testing
 if __name__ == "__main__":
-    # Imports
-    from sklearn import datasets
-    import matplotlib.pyplot as plt
-
     X, y = datasets.make_blobs(
         n_samples=50, n_features=2, centers=2, cluster_std=1.05, random_state=40
     )
     y = np.where(y == 0, -1, 1)
 
-    clf = SVM()
+    clf = SVC()
     clf.fit(X, y)
-
-    print(clf.w, clf.b)
 
     def visualize_svm():
         def get_hyperplane_value(x, w, b, offset):
