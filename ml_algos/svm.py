@@ -5,7 +5,25 @@ import matplotlib.pyplot as plt
 
 
 class SVC:
+    """
+    Support Vector Classifier (SVC) implementing a simple linear SVM using gradient descent.
+
+    Attributes:
+        lr (float): Learning rate for gradient descent.
+        lambda_param (float): Regularization parameter.
+        n_iters (int): Number of iterations for training.
+        w (ndarray): Weights of the model.
+        b (float): Bias term of the model.
+    """
     def __init__(self, learning_rate = 0.001, lambda_param = 0.01, n_iters = 1000):
+        """
+        Initialize the SVC with specified hyperparameters.
+
+        Args:
+            learning_rate (float): Learning rate for gradient descent.
+            lambda_param (float): Regularization parameter.
+            n_iters (int): Number of iterations for training.
+        """
         self.lr = learning_rate
         self.lambda_param = lambda_param
         self.n_iters = n_iters
@@ -13,6 +31,14 @@ class SVC:
         self.b = None
 
     def fit(self, X, y):
+        """
+        Train the SVC using gradient descent.
+
+        Args:
+            X (ndarray): Feature matrix of shape (n_samples, n_features).
+            y (ndarray): Target vector of shape (n_samples,).
+                        Labels should be either -1 or 1.
+        """
         n_samples, n_features = X.shape
 
         y_ = np.where(y <= 0, -1, 1)
@@ -31,6 +57,15 @@ class SVC:
                     self.b -= self.lr * y_[idx]
 
     def predict(self, X):
+        """
+        Predict the class labels for the given input data.
+
+        Args:
+            X (ndarray): Feature matrix of shape (n_samples, n_features).
+
+        Returns:
+            ndarray: Predicted labels (-1 or 1) for each sample.
+        """
         linear_output = np.dot(X, self.w) - self.b
         return np.sign(linear_output)
     
