@@ -23,6 +23,21 @@ class KMeans:
         for _ in range(self.max_iters):
             self.clusters = self._create_clusters(self.centroids)
 
+            centroids_old = self.centroids
+            self.centroids = self._get_centroids(self.clusters)
+
+            if self.is_converged(centroids_old, self.centroids):
+                break
+        
+        return self._get_cluster_labels(self.clusters)
+    
+    def _get_cluster_labels(self, clusters):
+        labels = np.empty(self.n_samples)
+        for cluster_idx, cluster in enumerate(clusters):
+            for sample_idx in cluster:
+                labels[sample_idx] = cluster_idx
+        return labels
+
 
     def _create_clusters(self, centroids):
         clusters = [[] for _ in range(self.k)]
@@ -34,3 +49,13 @@ class KMeans:
         distances = [euclidean_distance(sample, point) for point in centroids]
         closest_idx = np.argmin(distances)
         return closest_idx
+    
+    def _get_centroids(self, clusters):
+        centroids = np.random.rand(self.k, self.n_features)
+        for cluster_idx, cluster in enumerate(clusters):
+            cluster_mean = np.mean(self.X[cluster], axis=0)
+            centroids[cluster_idx] = cluster_mean
+
+    def _is_converged(self, centroids_old, centroids):
+        distances = [euclidean_distance(centroids_old[i], centroids[i]) for i in range(self.k)]
+        return sum(distances) == 0
