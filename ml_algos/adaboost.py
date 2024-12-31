@@ -1,4 +1,8 @@
+# Imports
 import numpy as np
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 
 class DecisionStump:
     def __init__(self):
@@ -71,3 +75,23 @@ class AdaBoost:
         y_pred = np.sum(clf_preds, axis = 0)
         y_pred = np.sign(y_pred)
         return y_pred
+    
+
+# Testing
+if __name__ == "__main__":
+    data = datasets.load_breast_cancer()
+    X, y = data.data, data.target
+
+    y[y == 0] = -1
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=5
+    )
+
+    # AdaBoost classification with 10 weak classifiers
+    clf = AdaBoost(n_estimators=10)
+    clf.fit(X_train, y_train)
+    y_pred = clf.predict(X_test)
+
+    acc = accuracy_score(y_test, y_pred)
+    print("Test set Accuracy:", acc)
