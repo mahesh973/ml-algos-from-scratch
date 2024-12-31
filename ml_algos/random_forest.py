@@ -140,4 +140,4 @@ if __name__ == "__main__":
     y_pred = clf.predict(X_test)
     acc = accuracy_score(y_test, y_pred)
 
-    print("Test set Accuracy:", acc)
+    print("Test set Accuracy", acc)
