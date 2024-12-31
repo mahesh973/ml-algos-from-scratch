@@ -1,5 +1,10 @@
+# Imports
 import numpy as np
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 from collections import Counter
+
 
 def entropy(y):
     hist = np.bincount(y)
@@ -52,7 +57,15 @@ class DecisionTreeClassifier:
     
     def predict(self, X):
         # Traverse the tree
-        pass
+        return np.array([self._traverse_tree(x, self.root) for x in X])
+    
+    def _traverse_tree(self, x, node):
+        if node.is_leaf_node():
+            return node.value
+
+        if x[node.feature] <= node.threshold:
+            return self._traverse_tree(x, node.left)
+        return self._traverse_tree(x, node.right)
 
     def _best_criteria(self, X, y, feature_idxs):
         best_gain = -1
@@ -103,3 +116,19 @@ class DecisionTreeClassifier:
         counter = Counter(y)
         return counter.most_common(1)[0][0]
 
+
+if __name__ == "__main__":
+    data = datasets.load_breast_cancer()
+    X, y = data.data, data.target
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=1234
+    )
+
+    clf = DecisionTreeClassifier(max_depth=10)
+    clf.fit(X_train, y_train)
+
+    y_pred = clf.predict(X_test)
+    acc = accuracy_score(y_test, y_pred)
+
+    print("Accuracy:", acc)
