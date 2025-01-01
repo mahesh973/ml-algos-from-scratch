@@ -4,7 +4,7 @@ Welcome to the `ml-algos-from-scratch` repository! This repository contains impl
 
 ## About
 
-Machine learning algorithms are often used as black boxes, with the inner workings hidden behind libraries and frameworks. This project aims to demystify these algorithms by implementing them from scratch. By doing so, we can gain a deeper understanding of how they work and how to optimize them.
+Machine learning algorithms are often used as black boxes, with the inner workings hidden behind libraries and frameworks. This work aims to better understand these algorithms by implementing them from scratch. 
 
 ## Implemented Algorithms
 
