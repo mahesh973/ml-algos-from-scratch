@@ -10,7 +10,7 @@ Machine learning algorithms are often used as black boxes, with the inner workin
 
 - Linear Regression
 - Logistic Regression
-- k-Nearest Neighbors (k-NN)
+- k-Nearest Neighbors (kNN)
 - Decision Tree
 - Random Forest
 - Support Vector Machine (SVM)
